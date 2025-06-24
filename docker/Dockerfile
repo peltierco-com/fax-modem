@@ -55,9 +55,16 @@ COPY --from=builder /t38modem/t38modem /usr/local/bin/t38modem
 # Supervisor cofig
 COPY ./supervisord.conf /etc/supervisor/supervisord.conf
 
+# ser2net cofig
+COPY ./ser2net.conf /etc/ser2net.conf
+
 ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 ENV LD_LIBRARY_PATH=/usr/local/lib
 ENV PTLIBPLUGINDIR="/usr/local/lib/ptlib-${PTLIB_VERSION}:/usr/local/lib/opal-${OPAL_VERSION}"
 
+ENV SIPADDR=sip.example.com
+ENV SIPUSER=user
+ENV SIPPASS=password
+
 # Supervisor start
-#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
