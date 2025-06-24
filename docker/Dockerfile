@@ -31,7 +31,7 @@ RUN ./configure --prefix=/builder \
 WORKDIR /t38modem
 RUN make
 
-FROM ubuntu:18.04 AS runner
+FROM ubuntu:bionic AS runner
 ENV PTLIB_VERSION="2.18.6"
 ENV OPAL_VERSION="3.18.6"
 ENV T38MODEM_VERSION="4.6.2"
