@@ -1,0 +1,8 @@
+services:
+  fax-modem:
+    build: .
+    container_name: fax-modem
+    environment:
+      - SIPADDR=example.com
+      - SIPUSER=username
+      - SIPPASS=password
