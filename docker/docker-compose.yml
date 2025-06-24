@@ -1,5 +1,7 @@
 services:
-  fax-modem:
+  modem:
+    build: .
+    container_name: fax-modem
     ports:
       - "5551:5551"
       - "5552:5552"
@@ -10,4 +12,3 @@ services:
       - SIPADDR=example.com
       - SIPUSER=username
       - SIPPASS=password
-    image: fax-modem:latest
