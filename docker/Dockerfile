@@ -42,7 +42,7 @@ RUN apt-get update \
 	&& apt-get install -y libpcap-dev libexpat1-dev libssl-dev libsasl2-dev libldap2-dev \
 		unixodbc-dev liblua5.3-dev libv8-dev libncurses-dev libsdl2-dev \
 		libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev pkg-config \
-		supervisor nano wget ser2net \
+		supervisor nano wget \
 	&& apt-get clean -y \
 	&& apt-get autoremove -y \
 	&& apt-get autoclean -y \
@@ -54,9 +54,6 @@ COPY --from=builder /t38modem/t38modem /usr/local/bin/t38modem
 
 # Supervisor cofig
 COPY ./supervisord.conf /etc/supervisor/supervisord.conf
-
-# ser2net cofig
-COPY ./ser2net.conf /etc/ser2net.conf
 
 ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 ENV LD_LIBRARY_PATH=/usr/local/lib

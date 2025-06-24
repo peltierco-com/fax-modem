@@ -2,12 +2,8 @@ services:
   modem:
     build: .
     container_name: fax-modem
-    ports:
-      - "5551:5551"
-      - "5552:5552"
-      - "5553:5553"
-      - "5554:5554"
-      #- "5555:5555"
+    volumes:
+      - /dev:/dev
     environment:
       - SIPADDR=example.com
       - SIPUSER=username
