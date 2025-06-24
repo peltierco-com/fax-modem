@@ -7,7 +7,7 @@ services:
       - "5552:5552"
       - "5553:5553"
       - "5554:5554"
-      - "5555:5555"
+      #- "5555:5555"
     environment:
       - SIPADDR=example.com
       - SIPUSER=username
