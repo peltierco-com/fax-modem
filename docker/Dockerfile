@@ -42,18 +42,17 @@ RUN apt-get update \
 	&& apt-get install -y libpcap-dev libexpat1-dev libssl-dev libsasl2-dev libldap2-dev \
 		unixodbc-dev liblua5.3-dev libv8-dev libncurses-dev libsdl2-dev \
 		libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev pkg-config \
-		supervisor nano wget \
-	&& apt-get clean -y \
-	&& apt-get autoremove -y \
-	&& apt-get autoclean -y \
-	&& rm -rf /tmp/* \
-	&& rm -rf /var/lib/apt/lists/*
+		build-essential libssl-dev libtiff-dev libtiff-tools ghostscript gawk sendmail nano wget
 
 COPY --from=builder /builder/lib/. /usr/local/lib/
 COPY --from=builder /t38modem/t38modem /usr/local/bin/t38modem
 
-# Supervisor cofig
-COPY ./supervisord.conf /etc/supervisor/supervisord.conf
+WORKDIR /usr/src
+RUN	wget http://prdownloads.sourceforge.net/hylafax/hylafax-7.0.11.tar.gz?download -O hylafax-7.0.11.tar.gz \
+	&& tar -xzf hylafax-7.0.11.tar.gz
+WORKDIR /var/lib/ghostscript/fonts
+RUN wget https://github.com/peltierco-com/fax-host/raw/refs/heads/main/afm-tar.Z \
+	&& tar -zxvf afm-tar.Z --strip-components=1
 
 ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 ENV LD_LIBRARY_PATH=/usr/local/lib
@@ -63,5 +62,7 @@ ENV SIPADDR=sip.example.com
 ENV SIPUSER=user
 ENV SIPPASS=password
 
+# Supervisor cofig
+#COPY ./supervisord.conf /etc/supervisor/supervisord.conf
 # Supervisor start
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+#CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
