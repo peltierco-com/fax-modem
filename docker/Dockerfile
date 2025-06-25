@@ -1,4 +1,4 @@
-FROM ubuntu:bionic AS builder
+FROM ubuntu:24.04 AS builder
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PTLIB_VERSION="2.18.6"
 ENV GIT_PTLIB_VERSION="2_18_6"
@@ -31,7 +31,7 @@ RUN ./configure --prefix=/builder \
 WORKDIR /t38modem
 RUN make
 
-FROM ubuntu:bionic AS runner
+FROM ubuntu:24.04 AS runner
 ENV PTLIB_VERSION="2.18.6"
 ENV OPAL_VERSION="3.18.6"
 ENV T38MODEM_VERSION="4.6.2"
